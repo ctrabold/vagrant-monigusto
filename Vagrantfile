@@ -35,9 +35,18 @@ Vagrant::Config.run do |config|
     # ES
     server_config.vm.forward_port 9200, 8088
 
+    # RabbitMQ
+    server_config.vm.forward_port 55672, 8089
+    # Sensu-dashboard
+    server_config.vm.forward_port 8090, 8090
+    # Sensu-api
+    server_config.vm.forward_port 8091, 8091
+
     # We need to increase timeout due to the forward ports default = 10
     server_config.ssh.timeout = 1000
     server_config.ssh.max_tries = 3000
+
+    server_config.vm.provision :shell, :path => "definitions/ubuntu-12.04/chef-client.sh"
 
     # server_config.vm.share_folder "v-data", "/vagrant_data", "../data"
 
@@ -64,6 +73,7 @@ Vagrant::Config.run do |config|
     # client_config.vm.forward_port 80, 8080
 
     # client_config.vm.share_folder "v-data", "/vagrant_data", "../data"
+    client_config.vm.provision :shell, :path => "definitions/ubuntu-12.04/chef-client.sh"
 
     client_config.vm.provision :chef_solo do |chef|
       chef.cookbooks_path = [ "cookbooks" , "monigusto/cookbooks","site-cookbooks"]

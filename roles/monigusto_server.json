@@ -3,6 +3,34 @@
   "default_attributes": {
   },
   "override_attributes": {
+    "nodejs": {
+      "install_method": "package"
+    },
+    "statsd": {
+      "extra_config": {
+        "librato": {
+          "email": "librato-email-address",
+          "token": "your-librato-token"
+        }
+      },
+      "backends": {
+        "statsd-librato-backend": null
+      }
+    },
+    "sensu":{
+      "rabbitmq": {
+        "password": "monigusto",
+        "host": "192.168.33.11"
+      },
+      "dashboard": {
+        "port":8090,
+        "password": "monigusto"
+      },
+      "api": {
+        "port":8091
+      },
+      "use_ssl":false
+    },
     "pingdom": {
       "username": "pingdomyouraccount",
       "password": "pingdompassword",

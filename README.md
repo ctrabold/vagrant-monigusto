@@ -4,7 +4,7 @@
 
 The `monigusto` project aims to provide the equivalent of `vagrant up` but for monitoring and logging:
 
-A single server box that contains the most common/current tools for monitoring like graphite, statsd, collectd, nagios, logstash, jmxtrans, tasseo and gdash . Then it becomes easy for a developer to get used to the management and monitoring and without the hassle of setting it up from scratch or finding out how to make it work together
+A single server box that contains the most common/current tools for monitoring like graphite, statsd, collectd, nagios, logstash, jmxtrans, tasseo , gdash , librato and sensu . Then it becomes easy for a developer to get used to the management and monitoring and without the hassle of setting it up from scratch or finding out how to make it work together
 
 # Usage:
 
@@ -60,6 +60,9 @@ This currently assumes the following:
 - statsd: <http://localhost:8086>
 - jmx: <http://localhost:8087>
 - elasticsearch: <http://localhost:8088>
+- sensu-amqp: <http://localhost:8089>
+- sensu-dashboard: <http://localhost:8090>
+- sensu-api: <http://localhost:8091>
 
 #### Accessible from your client
 
@@ -141,6 +144,9 @@ This currently assumes the following:
     - (origin) <https://github.com/jellybob/kitchen>
     - (ours) <https://github.com/monigusto/chef-statsd>
 
+- Librato-backend:
+  - Homepage: <https://github.com/librato/statsd-librato-backend>
+
 ## Logstash
 
 - Logstash/Kibana
@@ -156,6 +162,20 @@ This currently assumes the following:
   - Cookbook:
     - (origin) <https://github.com/danryan/chef-tasseo>
     - (ours) <https://github.com/monigusto/chef-tasseo>
+
+## Sensu
+
+- Sensu:
+  - Homepage: <https://github.com/sensu/sensu>
+  - Cookbook:
+    - (origin) <https://github.com/sensu/sensu-chef>
+    - (ours) <https://github.com/monigusto/chef-sensu>
+
+- Sensu-community-plugins:
+  - Homepage: <https://github.com/sensu/sensu-community-plugins.git>
+  - Cookbook:
+    - (origin) <https://github.com/manul/chef-sensu-community-plugins>
+    - (ours) <https://github.com/monigusto/chef-sensu-community-plugins>
 
 ## Chef
 
