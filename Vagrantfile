@@ -13,34 +13,25 @@ Vagrant::Config.run do |config|
     server_config.vm.network :hostonly, "192.168.33.11"
     server_config.vm.host_name = "vagrant-server.vm"
 
-    # server_config.vm.network :bridged
-
-    server_config.vm.forward_port 8080, 8080
-
-    server_config.vm.forward_port 8081, 8081
-
-    server_config.vm.forward_port 8082, 8082
-
-    server_config.vm.forward_port 8083, 8083
-    # Nginx Tasseo
-    server_config.vm.forward_port 8084, 8084
-    # Tasseo
-    server_config.vm.forward_port 5000, 8085
-    # Statsd telnet interface (see https://github.com/etsy/statsd)
-    # telnet localhost 8086
-    # use commands 'stats' 'counters' or 'timers'
-    server_config.vm.forward_port 8126, 8086
-    # JMX
-    server_config.vm.forward_port 1105, 8087
-    # ES
-    server_config.vm.forward_port 9200, 8088
-
-    # RabbitMQ
-    server_config.vm.forward_port 55672, 8089
-    # Sensu-dashboard
-    server_config.vm.forward_port 8090, 8090
-    # Sensu-api
-    server_config.vm.forward_port 8091, 8091
+    {
+     8080 => 8080,  # Nagios web frontend
+     8081 => 8081,  # Graphite
+     8082 => 8082,  # Collectd web
+     8083 => 8083,  # Kibana
+     8084 => 8084,  # Nginx Tasseo
+     5000 => 8085,  # Tasseo
+     # Statsd telnet interface (see https://github.com/etsy/statsd)
+     # telnet localhost 8086
+     # use commands 'stats' 'counters' or 'timers'
+     8126 => 8086,  # Statsd
+     1105 => 8087,  # JMX
+     9200 => 8088,  # ES
+     55672 => 8089, # RabbitMQ
+     8090 => 8090,  # Sensu dashboard
+     8091 => 8091   # Sensu API
+    }.each do |local_port,external_port|
+      server_config.vm.forward_port local_port, external_port
+    end
 
     # We need to increase timeout due to the forward ports default = 10
     server_config.ssh.timeout = 1000
