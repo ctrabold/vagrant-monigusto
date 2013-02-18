@@ -4,10 +4,8 @@
 Vagrant::Config.run do |config|
 
   config.vm.define :server do |server_config|
-    # Every Vagrant virtual environment requires a box to build off of.
     server_config.vm.box = "ubuntu-12.04"
 
-    # Add a little more memory to allow for internal hosts
     server_config.vm.customize ["modifyvm", :id, "--memory", 3072]
 
     server_config.vm.network :hostonly, "192.168.33.11"
@@ -39,7 +37,6 @@ Vagrant::Config.run do |config|
 
     server_config.vm.provision :shell, :path => "definitions/ubuntu-12.04/chef-client.sh"
 
-    # server_config.vm.share_folder "v-data", "/vagrant_data", "../data"
 
     server_config.vm.provision :chef_solo do |chef|
       chef.cookbooks_path = [ "cookbooks" , "monigusto/cookbooks","site-cookbooks"]
@@ -50,20 +47,13 @@ Vagrant::Config.run do |config|
   end
 
   config.vm.define :client do |client_config|
-    # Every Vagrant virtual environment requires a box to build off of.
     client_config.vm.box = "ubuntu-12.04"
 
-    # Add a little more memory to allow for internal hosts
     client_config.vm.customize ["modifyvm", :id, "--memory", 1024]
 
     client_config.vm.network :hostonly, "192.168.33.10"
     client_config.vm.host_name = "vagrant-client.vm"
 
-    # client_config.vm.network :bridged
-
-    # client_config.vm.forward_port 80, 8080
-
-    # client_config.vm.share_folder "v-data", "/vagrant_data", "../data"
     client_config.vm.provision :shell, :path => "definitions/ubuntu-12.04/chef-client.sh"
 
     client_config.vm.provision :chef_solo do |chef|
